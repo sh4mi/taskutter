@@ -1,0 +1,15 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load i18n %}
+{% load bootstrap4 %}
+{% block content %}
+<h4>Create a new Task</h4>
+<div class="col-sm-12 col-md-6 col-lg-4">
+    <form method="post">{% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-sm btn-outline-dark">Create</button>
+    </form>
+</div>
+
+
+{% endblock %}

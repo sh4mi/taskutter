@@ -1,0 +1,35 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load i18n %}
+{% load filters %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+
+
+
+{% else %}
+
+{% trans 'You are a guest. Please log in to views lists and tasks' %}
+
+{% endif %}
+<div class="card-columns">
+    {% for l in lists %}
+
+    <div class="card bg-light">
+        <div class="card-body text-center">
+            <h5 class="card-text">{{ l.title }}</h5>
+
+            <p>Tasks <b>{{ counts|index:forloop.counter0 }}</b> </p>
+            <p class="small text-danger">priority tasks: <b>{{ priority|index:forloop.counter0 }}</b> </p>
+            <a href="{% url 'task_create' pk=l.id  %}"><button type="button" class="btn btn-sm btn-dark">Add New Task</button></a>
+            <a href="{% url 'list_detail' pk=l.id %}"><button type="button" class="btn btn-sm btn-outline-dark">view</button></a>
+            <a href="{% url 'list_update' pk=l.id %}"><button type="button" class="btn btn-sm btn-outline-dark">edit</button></a>
+            <a href="{% url 'list_delete' pk=l.id %}"><button type="button" class="btn btn-sm btn-outline-dark">delete</button></a>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

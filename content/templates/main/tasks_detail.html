@@ -1,0 +1,14 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+
+<h3 class="title">{{ object.title }}</h3>
+<p>{{ object.description }}</p>
+<span class="font-weight-lighter small">Create by <b>{{object.user.username}}&nbsp;</b>{{ object.created_at }}</span>
+<hr>
+
+
+{% endblock %}

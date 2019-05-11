@@ -1,0 +1,22 @@
+/* Hi there */
+.flex-box
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid; */
+    margin: 50px auto;
+}
+.box
+{
+    width: 45%;
+    border: 3px solid #03A9F4;
+    padding: 30px;
+}
+.title-text
+{
+    margin-top: 70px;
+    font-size: 46px;
+    font-family: monospace;
+    text-shadow: 0px 5px 25px #03A9F4;
+}

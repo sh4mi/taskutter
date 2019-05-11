@@ -1,0 +1,45 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+
+<h3 class="title">{{ object.title }}</h3>
+<p>{{ object.description }}</p>
+<span class="font-weight-lighter small">Created by <b>{{object.user.username}}&nbsp;</b>{{ object.created_at }}</span>
+<a href="{% url 'list_update' pk=object.id  %}"><button type="button" class="btn btn-sm btn-outline-dark">edit</button></a>
+<a href="{% url 'list_delete' pk=object.id  %}"><button type="button" class="btn btn-sm btn-outline-dark">delete</button></a>
+<hr>
+<h4>Tasks</h4>
+<a href="{% url 'task_create' pk=object.id  %}"><button type="button" class="btn btn-sm btn-dark">Add New Task</button></a>
+<br>
+<br>
+<div class="card-columns">
+    {% if tasks %}
+    {% for t in tasks %}
+
+    <div class="card bg-light">
+        <div class="card-body text-center">
+            <p class="card-text">{{ t.title }}</p>
+            {% if t.priority == '3' %}
+            <p>priority: <b class="text-success">Low</b></p>
+            {% elif t.priority == '1' %}
+            <p>priority: <b class="text-danger">High</b></p>
+            {% else %}
+            <p>priority: <b>Average</b></p>
+
+            {% endif %}
+
+            <a href="{% url 'task_detail' pk=t.id %}"><button type="button" class="btn btn-sm btn-outline-dark">view</button></a>
+            <a href="{% url 'task_update' pk=t.id %}"><button type="button" class="btn btn-sm btn-outline-dark">edit</button></a>
+            <a href="{% url 'task_delete' pk=t.id %}"><button type="button" class="btn btn-sm btn-outline-dark">delete</button></a>
+        </div>
+    </div>
+
+    {% endfor %}
+    {% else %}
+    <h4>No Tasks found for this list.</h4>
+    {% endif %}
+</div>
+{% endblock %}

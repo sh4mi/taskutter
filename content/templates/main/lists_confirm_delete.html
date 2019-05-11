@@ -1,0 +1,14 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete <b>"{{ object.title }}"</b> created on <b>{{ object.created_at}}</b> ?</p>
+    <button type="submit" class="btn btn-sm btn-outline-dark">delete</button>
+
+</form>
+
+
+{% endblock %}
