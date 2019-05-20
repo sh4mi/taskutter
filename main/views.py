@@ -3,14 +3,15 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Lists, Tasks
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class IndexPageView(TemplateView):
+class IndexPageView(LoginRequiredMixin, TemplateView):
     template_name = 'main/index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['lists'] = Lists.objects.all()
+        context['lists'] = Lists.objects.filter(user=self.request.user)
         counts = []
         priority = []
         for l in context['lists']:
@@ -22,7 +23,7 @@ class IndexPageView(TemplateView):
         return context
 
 
-class ListCreateView(CreateView):
+class ListCreateView(LoginRequiredMixin, CreateView):
     model = Lists
     fields = ['title', 'description']
     success_url = reverse_lazy('index')
@@ -32,7 +33,7 @@ class ListCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ListDetailView(DetailView):
+class ListDetailView(LoginRequiredMixin, DetailView):
     model = Lists
 
     def get_context_data(self, *args, **kwargs):
@@ -43,19 +44,19 @@ class ListDetailView(DetailView):
         return context
 
 
-class ListUpdateView(UpdateView):
+class ListUpdateView(LoginRequiredMixin, UpdateView):
     model = Lists
     fields = ['title', 'description']
     success_url = reverse_lazy('index')
     template_name_suffix = '_update_form'
 
 
-class ListDeleteView(DeleteView):
+class ListDeleteView(LoginRequiredMixin, DeleteView):
     model = Lists
     success_url = reverse_lazy('index')
 
 
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Tasks
     fields = ['title', 'description', 'priority']
     success_url = reverse_lazy('index')
@@ -66,21 +67,21 @@ class TaskCreateView(CreateView):
         return super().form_valid(form)
 
 
-class TaskDetailView(DetailView):
+class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Tasks
 
 
-class ChangeLanguageView(TemplateView):
+class ChangeLanguageView(LoginRequiredMixin, TemplateView):
     template_name = 'main/change_language.html'
 
 
-class TaskUpdateView(UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Tasks
     fields = ['title', 'description', 'priority']
     template_name_suffix = '_update_form'
     success_url = reverse_lazy('index')
 
 
-class TaskDeleteView(DeleteView):
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Tasks
     success_url = reverse_lazy('index')

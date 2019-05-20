@@ -92,7 +92,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-ENABLE_USER_ACTIVATION = True
+ENABLE_USER_ACTIVATION = False
 DISABLE_USERNAME = False
 LOGIN_VIA_EMAIL = False
 LOGIN_VIA_EMAIL_OR_USERNAME = True
@@ -101,7 +101,7 @@ LOGIN_URL = 'accounts:log_in'
 USE_REMEMBER_ME = True
 
 RESTORE_PASSWORD_VIA_EMAIL_OR_USERNAME = False
-ENABLE_ACTIVATION_AFTER_EMAIL_CHANGE = True
+ENABLE_ACTIVATION_AFTER_EMAIL_CHANGE = False
 
 SIGN_UP_FIELDS = ['username', 'email', 'password1', 'password2']
 if DISABLE_USERNAME:
@@ -116,7 +116,7 @@ LANGUAGE_CODE = 'en'
 LANGUAGES = [
     ('en', _('English')),
     ('ru', _('Russian')),
-    ('zh-Hans', _('Simplified Chinese')),
+
 ]
 
 TIME_ZONE = 'UTC'
